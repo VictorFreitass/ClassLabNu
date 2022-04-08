@@ -9,55 +9,66 @@ namespace ClassLabNu
         private string descricao;
         private int unidade;
         private string codbar;
-        private decimal valor;
-        private decimal desconto;
+        private double valor;
+        private double desconto;
+        private bool descontinuado;
 
         // criando propriedades
         public int Id { get { return id; } }
         public string Descricao { get { return descricao; } private set { descricao = value; } }
         public int Unidade { get { return unidade; } private set { unidade = value; } }
         public string Codbar { get { return codbar; } private set { codbar = value; } }
-        public decimal Valor { get { return valor; } private set { valor = value; } }
-        public decimal Desconto { get { return desconto; } private set { desconto = value; } }
+        public double Valor { get { return valor; } private set { valor = value; } }
+        public double Desconto { get { return desconto; } private set { desconto = value; } }
+        public bool Descontinuado { get { return descontinuado; } private set { descontinuado = value; } }
 
         // métodos construtores
         public Produto()
         {
 
         }
-        public Produto(string descricao, int unidade, string codbar, decimal valor, decimal desconto)
+        public Produto(string descricao, int unidade, string codbar, double valor, double desconto, bool descontinuado)
         {
             Descricao = descricao;
             Unidade = unidade;
             Codbar = codbar;
             Valor = valor;
             Desconto = desconto;
+            Descontinuado = descontinuado;
         }
         
         // métodos da classe
-        public void Inserir (Produto produto)
+        public void Inserir ()
         {
 
-        }
-        public bool Alterar(Produto produto)
-        {
-            return true;
         }
         public static Produto ConsultarPorId(int _id)
         {
             Produto produto = new Produto();
+            // conecta banco realiza consulta por Id do produto
             return produto;
         }
-            
-        public static Produto ConsultarPorCodBar(int _id)
+        public static Produto ConsultarPorCodBar(string _codbar)
         {
             Produto produto = new Produto();
+            // conecta banco e realiza consulta por código de barras do produto
             return produto;       
         }
-        public static List<Produto> Listar()
+        public List<Produto> BuscarPorDescricao(string _descricao)
         {
-            List<Produto> clientes = new List<Produto>();
-            return clientes;
+            List<Produto> produtos = new List<Produto>();
+            // conecta banco e realiza consulta por parte da descricao do produto
+            return produtos; 
+        } 
+        public List<Produto> ListarTodos()
+        {
+            List<Produto> produtos = new List<Produto>();
+            // conecta banco e realiza consulta retornando todos produtos
+            return produtos;
+        }
+        public bool Alterar ()
+        {
+            return true;
         }
     }
 }

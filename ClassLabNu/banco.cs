@@ -9,12 +9,25 @@ namespace ClassLabNu
 {
     public static class Banco
     {
+        // propriedade de conexão
+        public static string StrConexao { get; set;}
+
+        // método abrir conexão
         public static MySqlCommand Abrir()
         {
+
             MySqlCommand cmd = new MySqlCommand();
-            string strcon = @"";
-            MySqlConnection cn = new MySqlConnection(strcon);
-            cn.Open();
+            StrConexao = @"server=127.0.0.1;database=comercialdb0191;user id=root;password=;port=3306" ;
+            MySqlConnection cn = new MySqlConnection(StrConexao);
+            try
+            {
+                cn.Open();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
             cmd.Connection = cn;
             return cmd;
         }

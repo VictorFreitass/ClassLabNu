@@ -32,7 +32,15 @@ namespace ComercialSys91
         {
             Cliente c = new Cliente(txtNome.Text, txtCpf.Text, txtEmail.Text);
             c.Inserir();
-            txtId.Text = c.Id.ToString();
+            if (c.Id > 0)
+            {
+                txtId.Text = c.Id.ToString();
+                MessageBox.Show("Cliente gravado com sucesso!");
+            }
+            else
+            {
+                MessageBox.Show("Falha ao inserir cliente.");
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -48,6 +56,16 @@ namespace ComercialSys91
         private void txtNome_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            lstClientes.Items.Clear();
+            List<Cliente> listaDeClientes = Cliente.Listar();
+            foreach (Cliente cliente in listaDeClientes)
+            {
+                lstClientes.Items.Add(cliente.Id + " - " + cliente.Nome);
+            }
         }
     }
 }

@@ -53,10 +53,11 @@ namespace ClassLabNu
         public void Inserir ()
         {
             var cmd = Banco.Abrir();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert clientes (nome, cpf, email, datacad, ativo)" + "values('"+Nome+"','"+Cpf+"','"+Email+"' ,default, default)";
-            cmd.ExecuteNonQuery();
-            cmd.CommandText = "select @@identity";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "sp_cliente_inserir";
+            cmd.Parameters.AddWithValue("_nome", Nome);
+            cmd.Parameters.AddWithValue("_cpf", Cpf);
+            cmd.Parameters.AddWithValue("_email", Email);
             id = Convert.ToInt32(cmd.ExecuteScalar());
             cmd.Connection.Close();
         }
@@ -80,7 +81,22 @@ namespace ClassLabNu
         public static List<Cliente> Listar()
         {
             List<Cliente> clientes = new List<Cliente>();
-            // cenas dos próximos episódios...
+            var cmd = Banco.Abrir();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from clientes order by nome;";
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                clientes.Add(new Cliente(
+                    dr.GetInt32(0),
+                    dr.GetString(1),
+                    dr.GetString(2),
+                    dr.GetString(3),
+                    dr.GetDateTime(4),
+                    dr.GetBoolean(5)
+                    ));
+            }
+
             return clientes;
         }
     }

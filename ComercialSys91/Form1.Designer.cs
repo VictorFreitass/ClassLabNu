@@ -37,6 +37,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnInserir = new System.Windows.Forms.Button();
+            this.lstClientes = new System.Windows.Forms.ListBox();
+            this.btnListar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtId
@@ -122,11 +124,31 @@
             this.btnInserir.UseVisualStyleBackColor = true;
             this.btnInserir.Click += new System.EventHandler(this.button1_Click);
             // 
+            // lstClientes
+            // 
+            this.lstClientes.FormattingEnabled = true;
+            this.lstClientes.Location = new System.Drawing.Point(380, 120);
+            this.lstClientes.Name = "lstClientes";
+            this.lstClientes.Size = new System.Drawing.Size(120, 95);
+            this.lstClientes.TabIndex = 9;
+            // 
+            // btnListar
+            // 
+            this.btnListar.Location = new System.Drawing.Point(407, 222);
+            this.btnListar.Name = "btnListar";
+            this.btnListar.Size = new System.Drawing.Size(75, 23);
+            this.btnListar.TabIndex = 10;
+            this.btnListar.Text = "&Listar Todos";
+            this.btnListar.UseVisualStyleBackColor = true;
+            this.btnListar.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 626);
+            this.Controls.Add(this.btnListar);
+            this.Controls.Add(this.lstClientes);
             this.Controls.Add(this.btnInserir);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -155,6 +177,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnInserir;
+        private System.Windows.Forms.ListBox lstClientes;
+        private System.Windows.Forms.Button btnListar;
     }
 }
 

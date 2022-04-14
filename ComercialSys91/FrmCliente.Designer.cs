@@ -1,6 +1,6 @@
 ﻿namespace ComercialSys91
 {
-    partial class Form1
+    partial class FrmCliente
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -75,6 +75,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(190, 20);
             this.txtEmail.TabIndex = 3;
+            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             // 
             // label1
             // 
@@ -115,37 +116,44 @@
             // 
             // btnInserir
             // 
+            this.btnInserir.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnInserir.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInserir.ForeColor = System.Drawing.SystemColors.WindowText;
             this.btnInserir.Location = new System.Drawing.Point(119, 241);
             this.btnInserir.Name = "btnInserir";
             this.btnInserir.Size = new System.Drawing.Size(75, 23);
             this.btnInserir.TabIndex = 8;
             this.btnInserir.Text = "Inserir";
-            this.btnInserir.UseVisualStyleBackColor = true;
+            this.btnInserir.UseVisualStyleBackColor = false;
             this.btnInserir.Click += new System.EventHandler(this.button1_Click);
             // 
             // lstClientes
             // 
+            this.lstClientes.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.lstClientes.FormattingEnabled = true;
-            this.lstClientes.Location = new System.Drawing.Point(380, 120);
+            this.lstClientes.Location = new System.Drawing.Point(372, 103);
             this.lstClientes.Name = "lstClientes";
-            this.lstClientes.Size = new System.Drawing.Size(120, 95);
+            this.lstClientes.Size = new System.Drawing.Size(190, 108);
             this.lstClientes.TabIndex = 9;
+            this.lstClientes.SelectedIndexChanged += new System.EventHandler(this.lstClientes_SelectedIndexChanged);
             // 
             // btnListar
             // 
-            this.btnListar.Location = new System.Drawing.Point(407, 222);
+            this.btnListar.BackColor = System.Drawing.SystemColors.Window;
+            this.btnListar.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.btnListar.Location = new System.Drawing.Point(433, 241);
             this.btnListar.Name = "btnListar";
             this.btnListar.Size = new System.Drawing.Size(75, 23);
             this.btnListar.TabIndex = 10;
             this.btnListar.Text = "&Listar Todos";
-            this.btnListar.UseVisualStyleBackColor = true;
+            this.btnListar.UseVisualStyleBackColor = false;
             this.btnListar.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // Form1
+            // FrmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(856, 626);
             this.Controls.Add(this.btnListar);
             this.Controls.Add(this.lstClientes);
@@ -158,7 +166,7 @@
             this.Controls.Add(this.txtCpf);
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.txtId);
-            this.Name = "Form1";
+            this.Name = "FrmCliente";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

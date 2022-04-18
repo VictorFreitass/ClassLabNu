@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace ClassLabNu
 {
@@ -61,20 +62,64 @@ namespace ClassLabNu
             id = Convert.ToInt32(cmd.ExecuteScalar());
             cmd.Connection.Close();
         }
-        public bool Alterar(Cliente cliente)
+        public bool Alterar(int _id, string _nome, string _email)
         {
+            bool resultado = false;
+            try
+            {
+            var cmd = Banco.Abrir();
+            cmd.CommandType = CommandType.StoredProcedure;
+            // recebe o nome da procedure
+            cmd.CommandText = "sp_cliente_alterar";
+            // adiciona os parâmetros da procedure - lá do Mysql
+            // cmd.Parameters.Add("_id", MysqlDbType.Int32).Value = _id;
+            cmd.Parameters.AddWithValue("_id", _id);
+            cmd.Parameters.AddWithValue("_nome", _nome);
+            cmd.Parameters.AddWithValue("_email", _email);
+            cmd.ExecuteNonQuery();
+            resultado = true;
+            cmd.Connection.Close();
+            }
+            catch (Exception)
+            {
+
+            }
             return true;
         }
         public static Cliente ConsultarPorId(int _id)
         {
             Cliente cliente = new Cliente();
-            // cenas dos próximos episódios...
+            MySqlCommand cmd = Banco.Abrir();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from clientes where idcli = " + _id;
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cliente.Id = Convert.ToInt32(dr["idcli"]);
+                cliente.Nome = dr["nome"].ToString();
+                cliente.Cpf = dr.GetString(2);
+                cliente.Email = dr.GetString(3);
+                cliente.dataCad = dr.GetDateTime(4);
+                cliente.Ativo = dr.GetBoolean(5);
+            }
             return cliente;
         }
-        public static Cliente ConsultarPorCpf(int _cpf)
+        public static Cliente ConsultarPorCpf(string _cpf)
         {
             Cliente cliente = new Cliente();
-            // cenas dos próximos episódios...
+            MySqlCommand cmd = Banco.Abrir();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from clientes where idcli = " + _cpf;
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cliente.Id = Convert.ToInt32(dr["id"]);
+                cliente.Nome = dr["nome"].ToString();
+                cliente.Cpf = dr.GetString(2);
+                cliente.Email = dr.GetString(3);
+                cliente.dataCad = dr.GetDateTime(4);
+                cliente.Ativo = dr.GetBoolean(5);
+            }
             Cliente cliente2 = new Cliente();
             return cliente;
         }
@@ -83,7 +128,7 @@ namespace ClassLabNu
             List<Cliente> clientes = new List<Cliente>();
             var cmd = Banco.Abrir();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from clientes order by nome;";
+            cmd.CommandText = "select * from clientes  where ativo = 1 order by nome;"; //clientes ativos ordenados por nome
             var dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -96,8 +141,14 @@ namespace ClassLabNu
                     dr.GetBoolean(5)
                     ));
             }
-
             return clientes;
+        }
+        public void Desativar (int _id)
+        {
+            var cmd = Banco.Abrir(); // abre a conexão com o banco de dados
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "update clientes set ativo = 0 where idcli = " + _id;
+            cmd.Connection.Close();
         }
     }
 }

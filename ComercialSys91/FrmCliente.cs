@@ -93,6 +93,16 @@ namespace ComercialSys91
             else
             {
                 MessageBox.Show("Falha na alteração do Cliente!");
+                btnBuscar.Text = "...";
+                txtId.Text = "";
+                txtCpf.Text = "";
+                txtNome.Text = "";
+                txtEmail.Text = "";
+                txtId.ReadOnly = true;
+                label6.Enabled = false;
+                chkAtivo.Enabled = false;
+                txtCpf.ReadOnly = false;
+                btnAlterar.Enabled = false;
             }
         }
 

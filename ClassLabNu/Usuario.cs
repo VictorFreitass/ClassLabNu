@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Dados;
 
 namespace ClassLabNu
 {
@@ -56,10 +57,17 @@ namespace ClassLabNu
         }
         
         // métodos da classe
-        public int Inserir()
+        public static Inserir(string nome, string senha, string email)
         {
-            // chamadas de banco e gravo o registro
-            return id;
+            var cmd = Banco.Abrir ();
+            cmd.CommandType = CommandType.Procedimento Armazenado;
+            cmd.CommandText = "sp_usuarios_inserir";
+            cmd.Parameters.AddWithValue ( " _nome", nome);
+            cmd.Parameters.AddWithValue ( " _senha", senha);
+            cmd.Parameters.AddWithValue ( " _email ", email);
+
+            Id = Convert.ToInt32 (cmd.ExecuteScalar());
+            cmd.ExecuteNonQuery ();
         }
         public static bool EfetuarLogin(string email, string senha)
         {

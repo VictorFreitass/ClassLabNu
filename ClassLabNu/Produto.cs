@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Mysql.Data.MysqlClient;
 
 namespace ClassLabNu
 {
@@ -71,19 +72,61 @@ namespace ClassLabNu
         {
             Produto produto = new Produto();
             // conecta banco realiza consulta por Id do produto
+            MysqlCommand cmd = Banco.Abrir ();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = "select * from produtos where idProd =" + _id
+            MysqlDataReader dr = cmd.ExecuteReader ();
+            while (dr.Read ())
+            {
+                produto.Id = Convert.ToInt32(dr["id"]);
+                produto.Descricao = dr.GetString(1);
+                produto.Unidade = dr.GetDouble(2);
+                produto.Codbar = dr.GetString(3);
+                produto.Valor = dr.GetDouble(4);
+                produto.Desconto = dr.GetDouble(5);
+                produto.Descontinuado = dr.GetBoolean(6);
+            }
             return produto;
         }
         public static Produto ConsultarPorCodBar(string _codbar)
         {
             Produto produto = new Produto();
-            // conecta banco e realiza consulta por código de barras do produto
+            // conecta banco e realiza consulta por Id do Produto
+            MySqlCommand cmd = Banco.Abrir();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = "select * from produtos where codbar =" + _codbar;
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read()) // dr data reader
+            {
+                produto.Id = Convert.ToInt32(dr["idProd"]);
+                produto.Descricao = dr.GetString(1);
+                produto.Unidade = dr.GetDouble(2);
+                produto.CodBar = dr.GetString(3);
+                produto.Valor = dr.GetDouble(4);
+                produto.Desconto = dr.GetDouble(5);
+                produto.Descontinuado = dr.GetBoolean(6);
+            }
             return produto;
         }
         public List<Produto> BuscarPorDescricao(string _descricao)
         {
-            List<Produto> produtos = new List<Produto>();
-            // conecta banco e realiza consulta por parte da descricao do produto
-            return produtos;
+            LProduto produto = new Produto();
+            // conecta banco e realiza consulta por Id do Produto
+            MySqlCommand cmd = Banco.Abrir();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = "select * from produtos where descricao =" + _descricao;
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read()) // dr data reader
+            {
+                produto.Id = Convert.ToInt32(dr["idProd"]);
+                produto.Descricao = dr.GetString(1);
+                produto.Unidade = dr.GetDouble(2);
+                produto.CodBar = dr.GetString(3);
+                produto.Valor = dr.GetDouble(4);
+                produto.Desconto = dr.GetDouble(5);
+                produto.Descontinuado = dr.GetBoolean(6);
+            }
+            return produto;
         }
         public List<Produto> ListarTodos()
         {
@@ -91,17 +134,38 @@ namespace ClassLabNu
             // conecta banco e realiza consulta retornando todos produtos
             return produtos;
         }
-        public bool Alterar()
+        public bool Alterar(int _id, string descricao, double unidade, string codbar, double valor, double desconto)
         {
-            return true;
+            bool resultado = false;
+            try
+            {
+                MySqlCommand cmd = Banco.Abrir();
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                // Recebe o nome da procedure
+                cmd.CommandText = "sp_produto_alterar";
+                // Recebe os parâmetros da procedure do MySQL
+                cmd.Parameters.Add("_id", MySqlDbType.Int32).Value = _id; // usa de forma mais técnica e é necessário saber exatamente o tipo de valor do parametro
+                cmd.Parameters.Add("_descricao", MySqlDbType.VarChar).Value = Descricao;
+                cmd.Parameters.Add("_unidade", MySqlDbType.VarChar).Value = Unidade;
+                cmd.Parameters.Add("_codbar", MySqlDbType.VarChar).Value = CodBar;
+                cmd.Parameters.Add("_valor", MySqlDbType.Decimal).Value = Valor;
+                cmd.Parameters.Add("_desconto", MySqlDbType.Decimal).Value = Desconto;
+                cmd.ExecuteNonQuery();
+                resultado = true;
+            }
+            catch (Exception)
+            {
+
+            }
+            return resultado;
         }
         public static List<Produto> Listar()
         {
             List<Produto> produtos  = new List<Produto>();
-            var cmd = Banco.Abrir();
-            // cmd.CommandType = CommandType.Text;
+            MySqlCommand cmd = Banco.Abrir();
+            ccmd.CommandType = System.Data.CommandType.Text;
             cmd.CommandText = "select * from produtos order by nome;";
-            var dr = cmd.ExecuteReader();
+            MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 produtos.Add(new Produto(

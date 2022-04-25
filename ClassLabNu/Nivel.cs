@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace ClassLabNu
 {
@@ -16,7 +17,7 @@ namespace ClassLabNu
 
         // criando propriedades
 
-        public int Id { get { return id; }}
+        public int Id { get { return id; } set {id = value; }}
         public string Nome { get { return nome; } private set { nome = value; } }
         public string Sigla { get { return sigla; }}
 
@@ -55,6 +56,21 @@ namespace ClassLabNu
         public bool Alterar(int id, string sigla)
         {
             return true;
+        }
+
+        public static Nivel Consultar (int _id)
+        {
+            Nivel nivel = new Nivel();
+            var cmd = Banco.Abrir();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = "select * from nivel where idNv =" + _id;
+            var dr = cmd.ExecuteReader ();
+            while (dr.Read()) //data reader
+            {
+                nivel.Id = Convert.ToInt32(dr["idNv"]);
+                nivel.Nome = dr.GetString(1);
+            }
+            return nivel;
         }
     }
 }

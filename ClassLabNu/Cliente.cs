@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using MySql.Data.MySqlClient;
 
 namespace ClassLabNu
 {
@@ -51,10 +50,10 @@ namespace ClassLabNu
         }
         
         // métodos da classe
-        public void Inserir ()
+        public void Inserir () //Chamadas de banco e grava o registro
         {
             var cmd = Banco.Abrir();
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.CommandText = "sp_cliente_inserir";
             cmd.Parameters.AddWithValue("_nome", Nome);
             cmd.Parameters.AddWithValue("_cpf", Cpf);
@@ -68,13 +67,13 @@ namespace ClassLabNu
             try
             {
             var cmd = Banco.Abrir();
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
             // recebe o nome da procedure
             cmd.CommandText = "sp_cliente_alterar";
             // adiciona os parâmetros da procedure - lá do Mysql
             // cmd.Parameters.Add("_id", MysqlDbType.Int32).Value = _id;
             cmd.Parameters.AddWithValue("_id", _id);
-            cmd.Parameters.AddWithValue("_nome", _nome);
+            cmd.Parameters.AddWithValue("_nome",_nome);
             cmd.Parameters.AddWithValue("_email", _email);
             cmd.ExecuteNonQuery();
             resultado = true;
@@ -89,10 +88,10 @@ namespace ClassLabNu
         public static Cliente ConsultarPorId(int _id)
         {
             Cliente cliente = new Cliente();
-            MySqlCommand cmd = Banco.Abrir();
+            var cmd = Banco.Abrir();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from clientes where idcli = " + _id;
-            MySqlDataReader dr = cmd.ExecuteReader();
+            var dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 cliente.Id = Convert.ToInt32(dr["idcli"]);
@@ -107,10 +106,10 @@ namespace ClassLabNu
         public static Cliente ConsultarPorCpf(string _cpf)
         {
             Cliente cliente = new Cliente();
-            MySqlCommand cmd = Banco.Abrir();
+            var cmd = Banco.Abrir();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from clientes where idcli = " + _cpf;
-            MySqlDataReader dr = cmd.ExecuteReader();
+            var dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 cliente.Id = Convert.ToInt32(dr["id"]);

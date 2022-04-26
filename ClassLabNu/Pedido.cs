@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace ClassLabNu
 {
@@ -105,10 +106,21 @@ namespace ClassLabNu
             Itens = itens;
         }
         // Métodos da classe - Operações/Ações/Funções
-        public void Inserir () { }
-        public bool Alterar(Pedido pedido) 
+        public void Inserir()
         {
-            return false;
+            var cmd = Banco.Abrir();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "sp_pedido_inserir";
+            cmd.Parameters.AddWithValue("_idcli", Cliente.Id);
+            cmd.Parameters.AddWithValue("_iduser", Usuario.id);
+            var dr = cmd.ExecuteReader();
+            dr.Read();
+            Id = dr.GetInt32(0);
+            Status = dr.GetString(1);
+            cmd.Connection.Close();
+        }
+        public void Alterar(Pedido pedido) 
+        {
         }
         public static Pedido ConsultarPorId(int _id)
         {

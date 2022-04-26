@@ -41,5 +41,10 @@ namespace ComercialSys91
             // exiber o formulário de cliente na formprincipal
             frmProduto.Show();
         }
+
+        private void operaçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

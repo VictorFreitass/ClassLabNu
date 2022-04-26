@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using Mysql.Data.MysqlClient;
+using MySql.Data.MySqlClient;
+
 
 namespace ClassLabNu
 {
@@ -72,15 +73,15 @@ namespace ClassLabNu
         {
             Produto produto = new Produto();
             // conecta banco realiza consulta por Id do produto
-            MysqlCommand cmd = Banco.Abrir ();
+            MySqlCommand cmd = Banco.Abrir();
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = "select * from produtos where idProd =" + _id
-            MysqlDataReader dr = cmd.ExecuteReader ();
+            cmd.CommandText = "select * from produtos where idProd =" + _id;        
+            MySqlDataReader dr = cmd.ExecuteReader ();
             while (dr.Read ())
             {
                 produto.Id = Convert.ToInt32(dr["id"]);
                 produto.Descricao = dr.GetString(1);
-                produto.Unidade = dr.GetDouble(2);
+                produto.Unidade = dr.GetString(2);
                 produto.Codbar = dr.GetString(3);
                 produto.Valor = dr.GetDouble(4);
                 produto.Desconto = dr.GetDouble(5);
@@ -100,8 +101,8 @@ namespace ClassLabNu
             {
                 produto.Id = Convert.ToInt32(dr["idProd"]);
                 produto.Descricao = dr.GetString(1);
-                produto.Unidade = dr.GetDouble(2);
-                produto.CodBar = dr.GetString(3);
+                produto.Unidade = dr.GetString(2);
+                produto.Codbar = dr.GetString(3);
                 produto.Valor = dr.GetDouble(4);
                 produto.Desconto = dr.GetDouble(5);
                 produto.Descontinuado = dr.GetBoolean(6);
@@ -110,7 +111,7 @@ namespace ClassLabNu
         }
         public List<Produto> BuscarPorDescricao(string _descricao)
         {
-            LProduto produto = new Produto();
+            List<Produto> l = new List<Produto>();
             // conecta banco e realiza consulta por Id do Produto
             MySqlCommand cmd = Banco.Abrir();
             cmd.CommandType = System.Data.CommandType.Text;
@@ -118,20 +119,47 @@ namespace ClassLabNu
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read()) // dr data reader
             {
-                produto.Id = Convert.ToInt32(dr["idProd"]);
-                produto.Descricao = dr.GetString(1);
-                produto.Unidade = dr.GetDouble(2);
-                produto.CodBar = dr.GetString(3);
-                produto.Valor = dr.GetDouble(4);
-                produto.Desconto = dr.GetDouble(5);
-                produto.Descontinuado = dr.GetBoolean(6);
+                l.Add(new Produto(
+                Id = Convert.ToInt32(dr["idProd"]),
+                Descricao = dr.GetString(1),
+                Unidade = dr.GetString(2),
+                Codbar = dr.GetString(3),
+                Valor = dr.GetDouble(4),
+                Desconto = dr.GetDouble(5),
+                Descontinuado = dr.GetBoolean(6)
+
+                ));
+               
             }
-            return produto;
+            return l;
         }
-        public List<Produto> ListarTodos()
+        public static List<Produto> ListarTodos(string descriParte = null)
         {
             List<Produto> produtos = new List<Produto>();
             // conecta banco e realiza consulta retornando todos produtos
+            MySqlCommand cmd = Banco.Abrir();
+            if (descriParte == null)
+            { //lista produtos ativos ordenado alfabeticamente
+                cmd.CommandText = "select * from produtos where descontinuado = 0 order by 2";
+            }
+            else
+            { // lista produtos ativos, por parte da descricao e ordenado alfabeticamente
+                cmd.CommandText = "select * from produtos where descontinuado = 0 and descricao like '%"+descriParte+"%' order by 2";
+            }
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                produtos.Add(new Produto(
+                    dr.GetInt32(0),
+                    dr.GetString(1),
+                    dr.GetString(2),
+                    dr.GetString(3),
+                    dr.GetDouble(4),
+                    dr.GetDouble(5),
+                    dr.GetBoolean(6)
+                    ));
+            }
+            cmd.Connection.Close();
             return produtos;
         }
         public bool Alterar(int _id, string descricao, double unidade, string codbar, double valor, double desconto)
@@ -147,7 +175,7 @@ namespace ClassLabNu
                 cmd.Parameters.Add("_id", MySqlDbType.Int32).Value = _id; // usa de forma mais técnica e é necessário saber exatamente o tipo de valor do parametro
                 cmd.Parameters.Add("_descricao", MySqlDbType.VarChar).Value = Descricao;
                 cmd.Parameters.Add("_unidade", MySqlDbType.VarChar).Value = Unidade;
-                cmd.Parameters.Add("_codbar", MySqlDbType.VarChar).Value = CodBar;
+                cmd.Parameters.Add("_codbar", MySqlDbType.VarChar).Value = Codbar;
                 cmd.Parameters.Add("_valor", MySqlDbType.Decimal).Value = Valor;
                 cmd.Parameters.Add("_desconto", MySqlDbType.Decimal).Value = Desconto;
                 cmd.ExecuteNonQuery();
@@ -163,7 +191,7 @@ namespace ClassLabNu
         {
             List<Produto> produtos  = new List<Produto>();
             MySqlCommand cmd = Banco.Abrir();
-            ccmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandType = System.Data.CommandType.Text;
             cmd.CommandText = "select * from produtos order by nome;";
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())

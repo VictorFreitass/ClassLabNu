@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Dados;
+using System.Data;
 
 namespace ClassLabNu
 {
@@ -11,15 +11,12 @@ namespace ClassLabNu
     public class Usuario
     {
         // atributos
-        private int id;
+        public int id { get; set;}
         private string nome;
         private string email;
         private Nivel nivel;
         private string password;
         private bool ativo;
-
-        // propriedades
-        public int Id { get { return id; } set { id = value; } }
         public string Nome { get { return nome; } }
         public string Email { get { return email; } set { email = value; } }
         public string Password
@@ -57,16 +54,16 @@ namespace ClassLabNu
         }
         
         // métodos da classe
-        public static Inserir(string nome, string senha, string email)
+        public void Inserir(string nome, string senha, string email)
         {
             var cmd = Banco.Abrir ();
-            cmd.CommandType = CommandType.Procedimento Armazenado;
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "sp_usuarios_inserir";
             cmd.Parameters.AddWithValue ( " _nome", nome);
             cmd.Parameters.AddWithValue ( " _senha", senha);
             cmd.Parameters.AddWithValue ( " _email ", email);
 
-            Id = Convert.ToInt32 (cmd.ExecuteScalar());
+            id = Convert.ToInt32 (cmd.ExecuteScalar());
             cmd.ExecuteNonQuery ();
         }
         public static bool EfetuarLogin(string email, string senha)

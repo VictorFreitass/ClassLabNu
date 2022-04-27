@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassLabNu;
+using Correios.Net;
+using ComercialSys;
 
 namespace ComercialSys91
 {
@@ -299,7 +301,7 @@ namespace ComercialSys91
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
-
+           
         }
 
         private void CEP_Click(object sender, EventArgs e)
@@ -335,6 +337,15 @@ namespace ComercialSys91
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cep_Leave(object sender, EventArgs e)
+        {
+            Cep.ConsultaCep(txtcep.Text);
+            txtbairro.Text = ViaCep.bairro;
+            txtlogradouro.Text = ViaCep.logradouro;
+            txtcomplemento.Text = ViaCep.complemento;
+            cmbuf.Text = ViaCep.uf;
         }
     }
 }

@@ -55,22 +55,22 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.Endereços = new System.Windows.Forms.Label();
             this.CEP = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtcep = new System.Windows.Forms.TextBox();
             this.Logradouro = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtlogradouro = new System.Windows.Forms.TextBox();
             this.Número = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtnumero = new System.Windows.Forms.TextBox();
             this.Complemento = new System.Windows.Forms.Label();
             this.Bairro = new System.Windows.Forms.Label();
             this.Cidade = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtcomplemento = new System.Windows.Forms.TextBox();
+            this.txtbairro = new System.Windows.Forms.TextBox();
+            this.txtcidade = new System.Windows.Forms.TextBox();
             this.Estado = new System.Windows.Forms.Label();
             this.UF = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.txtestado = new System.Windows.Forms.TextBox();
+            this.cmbuf = new System.Windows.Forms.ComboBox();
+            this.cmbtipo = new System.Windows.Forms.ComboBox();
             this.Tipo = new System.Windows.Forms.Label();
             this.Telefones = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
@@ -381,13 +381,14 @@
             this.CEP.Text = "CEP";
             this.CEP.Click += new System.EventHandler(this.CEP_Click);
             // 
-            // textBox1
+            // txtcep
             // 
-            this.textBox1.Location = new System.Drawing.Point(20, 360);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(71, 20);
-            this.textBox1.TabIndex = 22;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            this.txtcep.Location = new System.Drawing.Point(20, 360);
+            this.txtcep.Name = "txtcep";
+            this.txtcep.Size = new System.Drawing.Size(71, 20);
+            this.txtcep.TabIndex = 22;
+            this.txtcep.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            this.txtcep.Leave += new System.EventHandler(this.cep_Leave);
             // 
             // Logradouro
             // 
@@ -402,13 +403,13 @@
             this.Logradouro.Text = "Logradouro";
             this.Logradouro.Click += new System.EventHandler(this.Logradouro_Click);
             // 
-            // textBox2
+            // txtlogradouro
             // 
-            this.textBox2.Location = new System.Drawing.Point(97, 360);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(342, 20);
-            this.textBox2.TabIndex = 24;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.txtlogradouro.Location = new System.Drawing.Point(97, 360);
+            this.txtlogradouro.Name = "txtlogradouro";
+            this.txtlogradouro.Size = new System.Drawing.Size(342, 20);
+            this.txtlogradouro.TabIndex = 24;
+            this.txtlogradouro.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // Número
             // 
@@ -423,13 +424,13 @@
             this.Número.Text = "Número";
             this.Número.Click += new System.EventHandler(this.label2_Click);
             // 
-            // textBox3
+            // txtnumero
             // 
-            this.textBox3.Location = new System.Drawing.Point(445, 360);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(81, 20);
-            this.textBox3.TabIndex = 26;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged_1);
+            this.txtnumero.Location = new System.Drawing.Point(445, 360);
+            this.txtnumero.Name = "txtnumero";
+            this.txtnumero.Size = new System.Drawing.Size(81, 20);
+            this.txtnumero.TabIndex = 26;
+            this.txtnumero.TextChanged += new System.EventHandler(this.textBox3_TextChanged_1);
             // 
             // Complemento
             // 
@@ -470,29 +471,29 @@
             this.Cidade.Text = "Cidade";
             this.Cidade.Click += new System.EventHandler(this.Cidade_Click);
             // 
-            // textBox4
+            // txtcomplemento
             // 
-            this.textBox4.Location = new System.Drawing.Point(20, 404);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(153, 20);
-            this.textBox4.TabIndex = 30;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.txtcomplemento.Location = new System.Drawing.Point(20, 404);
+            this.txtcomplemento.Name = "txtcomplemento";
+            this.txtcomplemento.Size = new System.Drawing.Size(153, 20);
+            this.txtcomplemento.TabIndex = 30;
+            this.txtcomplemento.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
-            // textBox5
+            // txtbairro
             // 
-            this.textBox5.Location = new System.Drawing.Point(179, 404);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(187, 20);
-            this.textBox5.TabIndex = 31;
-            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            this.txtbairro.Location = new System.Drawing.Point(179, 404);
+            this.txtbairro.Name = "txtbairro";
+            this.txtbairro.Size = new System.Drawing.Size(187, 20);
+            this.txtbairro.TabIndex = 31;
+            this.txtbairro.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
-            // textBox6
+            // txtcidade
             // 
-            this.textBox6.Location = new System.Drawing.Point(372, 404);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(154, 20);
-            this.textBox6.TabIndex = 32;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.txtcidade.Location = new System.Drawing.Point(372, 404);
+            this.txtcidade.Name = "txtcidade";
+            this.txtcidade.Size = new System.Drawing.Size(154, 20);
+            this.txtcidade.TabIndex = 32;
+            this.txtcidade.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // Estado
             // 
@@ -520,31 +521,31 @@
             this.UF.Text = "UF";
             this.UF.Click += new System.EventHandler(this.UF_Click);
             // 
-            // textBox7
+            // txtestado
             // 
-            this.textBox7.Location = new System.Drawing.Point(20, 447);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(153, 20);
-            this.textBox7.TabIndex = 35;
-            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            this.txtestado.Location = new System.Drawing.Point(20, 447);
+            this.txtestado.Name = "txtestado";
+            this.txtestado.Size = new System.Drawing.Size(153, 20);
+            this.txtestado.TabIndex = 35;
+            this.txtestado.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
-            // comboBox1
+            // cmbuf
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(179, 446);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(48, 21);
-            this.comboBox1.TabIndex = 36;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cmbuf.FormattingEnabled = true;
+            this.cmbuf.Location = new System.Drawing.Point(179, 446);
+            this.cmbuf.Name = "cmbuf";
+            this.cmbuf.Size = new System.Drawing.Size(48, 21);
+            this.cmbuf.TabIndex = 36;
+            this.cmbuf.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // comboBox2
+            // cmbtipo
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(411, 446);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(115, 21);
-            this.comboBox2.TabIndex = 37;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.cmbtipo.FormattingEnabled = true;
+            this.cmbtipo.Location = new System.Drawing.Point(411, 446);
+            this.cmbtipo.Name = "cmbtipo";
+            this.cmbtipo.Size = new System.Drawing.Size(115, 21);
+            this.cmbtipo.TabIndex = 37;
+            this.cmbtipo.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // Tipo
             // 
@@ -718,22 +719,22 @@
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.Telefones);
             this.Controls.Add(this.Tipo);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.cmbtipo);
+            this.Controls.Add(this.cmbuf);
+            this.Controls.Add(this.txtestado);
             this.Controls.Add(this.UF);
             this.Controls.Add(this.Estado);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.txtcidade);
+            this.Controls.Add(this.txtbairro);
+            this.Controls.Add(this.txtcomplemento);
             this.Controls.Add(this.Cidade);
             this.Controls.Add(this.Bairro);
             this.Controls.Add(this.Complemento);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txtnumero);
             this.Controls.Add(this.Número);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtlogradouro);
             this.Controls.Add(this.Logradouro);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtcep);
             this.Controls.Add(this.CEP);
             this.Controls.Add(this.Endereços);
             this.Controls.Add(this.btnSave);
@@ -793,22 +794,22 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label Endereços;
         private System.Windows.Forms.Label CEP;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtcep;
         private System.Windows.Forms.Label Logradouro;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtlogradouro;
         private System.Windows.Forms.Label Número;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtnumero;
         private System.Windows.Forms.Label Complemento;
         private System.Windows.Forms.Label Bairro;
         private System.Windows.Forms.Label Cidade;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtcomplemento;
+        private System.Windows.Forms.TextBox txtbairro;
+        private System.Windows.Forms.TextBox txtcidade;
         private System.Windows.Forms.Label Estado;
         private System.Windows.Forms.Label UF;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TextBox txtestado;
+        private System.Windows.Forms.ComboBox cmbuf;
+        private System.Windows.Forms.ComboBox cmbtipo;
         private System.Windows.Forms.Label Tipo;
         private System.Windows.Forms.Label Telefones;
         private System.Windows.Forms.TextBox textBox8;

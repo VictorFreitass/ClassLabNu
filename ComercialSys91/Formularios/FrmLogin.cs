@@ -34,5 +34,10 @@ namespace ComercialSys91
                 lblmensagem.Text = "Errou";
             }
         }
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProduto));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmUsuario));
             this.btnInserir = new System.Windows.Forms.Button();
             this.Codbar = new System.Windows.Forms.Label();
             this.Unidade = new System.Windows.Forms.Label();

@@ -14,11 +14,12 @@ namespace ComercialSys91
 {
     public partial class FrmUsuario : Form
     {
-        public FrmUsuario()
+        public FrmUsuario(Form parent)
         {         
             InitializeComponent();
-            MdiParent = parent; // centralizar formulario
+            // MdiParent = parent; centralizar formulario
             ListarDataGrid(); // Lista usuario
+            MdiParent = parent;
         }
 
         private void LiberarCampos()
@@ -71,13 +72,12 @@ namespace ComercialSys91
             //Listando usuarios no DataGrid
             lista.ForEach(i =>
            {
-               GridUsuarios.Rows.Add();
-               GridUsuarios.Rows[lista.IndexOf(i)].Cells[clnID.Index].Value = i.Id;
-               GridUsuarios.Rows[lista.IndexOf(i)].Cells[clnNome.Index].Value = i.Nome;
-               GridUsuarios.Rows[lista.IndexOf(i)].Cells[clnEmail.Index].Value = i.Email;
-               GridUsuarios.Rows[lista.IndexOf(i)].Cells[clnSenha.Index].Value = i.Password;
-               GridUsuarios.Rows[lista.IndexOf(i)].Cells[clnNivel.Index].Value = i.Nivel;
-               GridUsuarios.Rows[lista.IndexOf(i)].Cells[clnAtivo.Index].Value = i.Ativo;
+               dgvUsuarios.Rows.Add();
+               dgvUsuarios.Rows[lista.IndexOf(i)].Cells[clnID.Index].Value = i.id;
+               dgvUsuarios.Rows[lista.IndexOf(i)].Cells[clnNome.Index].Value = i.nome;
+               dgvUsuarios.Rows[lista.IndexOf(i)].Cells[clnEmail.Index].Value = i.email;
+               dgvUsuarios.Rows[lista.IndexOf(i)].Cells[clnNivel.Index].Value = i.nivel;
+               dgvUsuarios.Rows[lista.IndexOf(i)].Cells[clnAtivo.Index].Value = i.ativo;
            });
             BloquearCampos();
         }
@@ -88,7 +88,7 @@ namespace ComercialSys91
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            ListarDataGrid();
         }
 
         private void Cadastro_Click(object sender, EventArgs e)
@@ -136,10 +136,10 @@ namespace ComercialSys91
         {
             //Objeto Usuario
             Usuario u = new Usuario(
+                Convert.ToInt32(cmbNivel.SelectedValue),
                 txtNome.Text,
                 txtEmail.Text,
-                txtSenha.Text,
-                Convert.ToInt32(cmbNivel.SelectedValue)
+                txtSenha.Text
                 );
 
             u.Inserir();
@@ -148,10 +148,10 @@ namespace ComercialSys91
             if (u.id > 0)
             {
                 //Verificar se email é valido
-                if (ValidacaoController.EmailValido(txtEmail.Text))
+                if (Validacao.EmailValido(txtEmail.Text))
                 {
                     txtID.Text = u.id.ToString();
-                    MessageBox.Show($"Usuario {u.Id} inserido com sucesso", "SysComercial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Usuario {u.id} inserido com sucesso", "SysComercial", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     //Atualizar DataGridView
                     ListarDataGrid();
@@ -159,7 +159,7 @@ namespace ComercialSys91
                 else
                 {
                     //Email Invalido
-                    MessageBox.Show($"Email invalido do usuario {u.Id}", "SysComercial", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show($"Email invalido do usuario {u.id}", "SysComercial", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             else
@@ -168,6 +168,114 @@ namespace ComercialSys91
                 MessageBox.Show("Falha ao inserir usuario", "SysComercial", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
             BloquearCampos();
+
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            //Objeto cliente
+            Usuario usuario = new Usuario();
+            //Atributo
+            usuario.id = int.Parse(txtID.Text);
+            usuario.nome = txtNome.Text;
+            usuario.password = txtSenha.Text;
+            usuario.email = txtEmail.Text;
+            usuario.nivel = Convert.ToInt32(cmbNivel.SelectedValue);
+            usuario.ativo = chkAtivo.Checked;
+
+            //Validaçao de email
+            if (Validacao.EmailValido (txtEmail.Text))
+            {
+                //usuario deseja fazer a alteração
+                if (MessageBox.Show("Você tem certeza que deseja alterar?", "SysComercial", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //Condição
+                    if (usuario.Alterar()) // Se cliente alterar for igual a TRUE
+                    {
+                        //Mensagem Box
+                        MessageBox.Show("Cliente alterado com sucesso!", "SysComercial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        //Limpa todos campos
+                        LimparTodosCampos();
+
+                        //Lista novamente
+                        ListarDataGrid();
+                    }
+                    else // Senão
+                    {
+                        //Messagem Box
+                        MessageBox.Show("Falha ao alterar o usuario!", "SysComercial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                }
+            }
+            else
+            {
+                // Email Invalido
+                MessageBox.Show($"Email do usuario {usuario.id} invalido", "SysComercial", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            BloquearCampos();
+        }
+
+        private void txtNomePesquisar_TextChanged(object sender, EventArgs e)
+        {
+            // Verificando se o valor a pesquisar é vazio
+            if (txtNomePesquisar.Text == "")
+            {
+
+            }
+            else
+            {
+                // Objeto Cliente
+                Usuario usuario = new Usuario();
+
+                // Metodo Consulta por nome
+                usuario.ConsultarPorNome(Convert.ToString(txtNomePesquisar.Text));
+
+                //Atributos
+                txtID.Text = Convert.ToString(usuario.id);
+                txtNome.Text = usuario.nome;
+                txtEmail.Text = usuario.email;
+                txtSenha.Text = usuario.password;
+                cmbNivel.SelectedValue = usuario.nivel;
+                chkAtivo.Checked = usuario.ativo;
+            }
+            // Limpar textbox pesquisar
+            txtIdPesquisar.Clear();
+        }
+
+
+        private void txtIdPesquisar_TextChanged(object sender, EventArgs e)
+        {
+            // Verificando se o valor a pesquisar é vazio
+            if (txtIdPesquisar.Text == "")
+            {
+
+            }
+            else
+            {
+                // Objeto Cliente
+                Usuario usuario = new Usuario();
+
+                // Metodo Consulta por ID
+                usuario.ConsultarPorId(Convert.ToInt32(txtIdPesquisar.Text));
+
+                // Atributos
+                txtID.Text = usuario.id.ToString();
+                txtNome.Text = usuario.nome;
+                txtEmail.Text = usuario.email;
+                txtSenha.Text = usuario.password;
+                cmbNivel.SelectedValue = usuario.nivel;
+            }
+        }
+
+        private void cmbNivel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmUsuario_Load_1(object sender, EventArgs e)
+        {
 
         }
     }

@@ -52,5 +52,15 @@ namespace ComercialSys91
             FrmLogin frmlogin = new FrmLogin();
             frmlogin.ShowDialog();
         }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // criar instância do Formulario Cliente
+            FrmUsuario frmUsuario = new FrmUsuario(this);
+            // tornando frmCliente filho do Container FrmPrincipal (this)
+            frmUsuario.MdiParent = this;
+            // exiber o formulário de cliente na formprincipal
+            frmUsuario.Show();
+        }
     }
 }

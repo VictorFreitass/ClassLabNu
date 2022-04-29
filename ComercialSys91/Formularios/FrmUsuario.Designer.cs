@@ -33,7 +33,7 @@
             this.Nome = new System.Windows.Forms.Label();
             this.Email = new System.Windows.Forms.Label();
             this.Senha = new System.Windows.Forms.Label();
-            this.Nivel = new System.Windows.Forms.Label();
+            this.lbnivel = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
@@ -55,6 +55,7 @@
             this.clnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnNivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Desbloquear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,14 +107,14 @@
             this.Senha.TabIndex = 4;
             this.Senha.Text = "Senha";
             // 
-            // Nivel
+            // lbnivel
             // 
-            this.Nivel.AutoSize = true;
-            this.Nivel.Location = new System.Drawing.Point(449, 133);
-            this.Nivel.Name = "Nivel";
-            this.Nivel.Size = new System.Drawing.Size(31, 13);
-            this.Nivel.TabIndex = 5;
-            this.Nivel.Text = "Nivel";
+            this.lbnivel.AutoSize = true;
+            this.lbnivel.Location = new System.Drawing.Point(449, 133);
+            this.lbnivel.Name = "lbnivel";
+            this.lbnivel.Size = new System.Drawing.Size(31, 13);
+            this.lbnivel.TabIndex = 5;
+            this.lbnivel.Text = "Nivel";
             // 
             // txtID
             // 
@@ -151,6 +152,7 @@
             this.cmbNivel.Name = "cmbNivel";
             this.cmbNivel.Size = new System.Drawing.Size(121, 21);
             this.cmbNivel.TabIndex = 10;
+            this.cmbNivel.SelectedIndexChanged += new System.EventHandler(this.cmbNivel_SelectedIndexChanged);
             // 
             // chkAtivo
             // 
@@ -168,6 +170,7 @@
             this.txtIdPesquisar.Name = "txtIdPesquisar";
             this.txtIdPesquisar.Size = new System.Drawing.Size(100, 20);
             this.txtIdPesquisar.TabIndex = 12;
+            this.txtIdPesquisar.TextChanged += new System.EventHandler(this.txtIdPesquisar_TextChanged);
             // 
             // txtNomePesquisar
             // 
@@ -175,12 +178,13 @@
             this.txtNomePesquisar.Name = "txtNomePesquisar";
             this.txtNomePesquisar.Size = new System.Drawing.Size(100, 20);
             this.txtNomePesquisar.TabIndex = 13;
+            this.txtNomePesquisar.TextChanged += new System.EventHandler(this.txtNomePesquisar_TextChanged);
             // 
             // Pesquisar
             // 
             this.Pesquisar.AutoSize = true;
             this.Pesquisar.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F);
-            this.Pesquisar.Location = new System.Drawing.Point(626, 23);
+            this.Pesquisar.Location = new System.Drawing.Point(613, 23);
             this.Pesquisar.Name = "Pesquisar";
             this.Pesquisar.Size = new System.Drawing.Size(88, 20);
             this.Pesquisar.TabIndex = 14;
@@ -213,6 +217,7 @@
             this.btnEditar.TabIndex = 17;
             this.btnEditar.Text = "&Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnInserir
             // 
@@ -305,11 +310,21 @@
             this.clnAtivo.ReadOnly = true;
             this.clnAtivo.Width = 50;
             // 
+            // Desbloquear
+            // 
+            this.Desbloquear.Location = new System.Drawing.Point(474, 32);
+            this.Desbloquear.Name = "Desbloquear";
+            this.Desbloquear.Size = new System.Drawing.Size(75, 23);
+            this.Desbloquear.TabIndex = 22;
+            this.Desbloquear.Text = "button1";
+            this.Desbloquear.UseVisualStyleBackColor = true;
+            // 
             // FrmUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(767, 415);
+            this.ClientSize = new System.Drawing.Size(732, 417);
+            this.Controls.Add(this.Desbloquear);
             this.Controls.Add(this.dgvUsuarios);
             this.Controls.Add(this.Usuarios);
             this.Controls.Add(this.btnListar);
@@ -326,7 +341,7 @@
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.txtID);
-            this.Controls.Add(this.Nivel);
+            this.Controls.Add(this.lbnivel);
             this.Controls.Add(this.Senha);
             this.Controls.Add(this.Email);
             this.Controls.Add(this.Nome);
@@ -334,6 +349,7 @@
             this.Controls.Add(this.Cadastro);
             this.Name = "FrmUsuario";
             this.Text = "FrmUsuario";
+            this.Load += new System.EventHandler(this.FrmUsuario_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -347,7 +363,7 @@
         private System.Windows.Forms.Label Nome;
         private System.Windows.Forms.Label Email;
         private System.Windows.Forms.Label Senha;
-        private System.Windows.Forms.Label Nivel;
+        private System.Windows.Forms.Label lbnivel;
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.TextBox txtEmail;
@@ -369,5 +385,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clnEmail;
         private System.Windows.Forms.DataGridViewTextBoxColumn clnNivel;
         private System.Windows.Forms.DataGridViewCheckBoxColumn clnAtivo;
+        private System.Windows.Forms.Button Desbloquear;
     }
 }
